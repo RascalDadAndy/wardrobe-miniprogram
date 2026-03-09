@@ -1,0 +1,31 @@
+<!--components/clothing-card/clothing-card.wxml-->
+<view class="clothing-card {{selected ? 'selected' : ''}}" 
+      bindtap="onTap"
+      bindlongpress="onLongPress">
+  <!-- 图片区域 -->
+  <view class="image-wrapper">
+    <image class="cloth-image" 
+           src="{{image}}" 
+           mode="aspectFill"
+           lazy-load/>
+    
+    <!-- 选中遮罩 -->
+    <view class="selected-overlay" wx:if="{{selected}}">
+      <image class="check-icon" src="/images/icons/check-white.png" mode="aspectFit"/>
+    </view>
+    
+    <!-- 删除按钮 -->
+    <view class="delete-btn" wx:if="{{showDelete}}" catchtap="onDelete">
+      <image src="/images/icons/delete.png" mode="aspectFit"/>
+    </view>
+  </view>
+  
+  <!-- 信息区域 -->
+  <view class="info-wrapper">
+    <text class="cloth-name">{{name}}</text>
+    <view class="cloth-tags">
+      <text class="tag category-tag" wx:if="{{category}}">{{categoryMap[category] || category}}</text>
+      <text class="tag season-tag" wx:if="{{season}}">{{seasonMap[season] || season}}</text>
+    </view>
+  </view>
+</view>

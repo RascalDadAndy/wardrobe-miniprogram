@@ -1,0 +1,32 @@
+<!--components/loading/loading.wxml-->
+<view class="loading-container {{fullScreen ? 'fullscreen' : ''}}" 
+      style="{{mask ? 'background: ' + maskColor : ''}}">
+  <!-- 默认加载动画 -->
+  <view class="loading-wrapper" wx:if="{{type === 'default'}}">
+    <view class="loading-spinner">
+      <view class="spinner-circle"></view>
+    </view>
+    <text class="loading-text" wx:if="{{text}}">{{text}}</text>
+  </view>
+
+  <!-- 旋转加载动画 -->
+  <view class="loading-wrapper" wx:if="{{type === 'spinner'}}">
+    <view class="spinner-ring">
+      <view class="ring-segment"></view>
+      <view class="ring-segment"></view>
+      <view class="ring-segment"></view>
+      <view class="ring-segment"></view>
+    </view>
+    <text class="loading-text" wx:if="{{text}}">{{text}}</text>
+  </view>
+
+  <!-- 点状加载动画 -->
+  <view class="loading-wrapper" wx:if="{{type === 'dots'}}">
+    <view class="dots-loader">
+      <view class="dot"></view>
+      <view class="dot"></view>
+      <view class="dot"></view>
+    </view>
+    <text class="loading-text" wx:if="{{text}}">{{text}}</text>
+  </view>
+</view>

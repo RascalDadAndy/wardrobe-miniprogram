@@ -1,0 +1,137 @@
+{
+  "description": "智能穿搭助手 - 微信小程序",
+  "packOptions": {
+    "ignore": [
+      {
+        "type": "folder",
+        "value": "node_modules"
+      },
+      {
+        "type": "file",
+        "value": ".eslintrc.js"
+      },
+      {
+        "type": "file",
+        "value": ".prettierrc"
+      },
+      {
+        "type": "folder",
+        "value": ".git"
+      }
+    ]
+  },
+  "setting": {
+    "bundle": false,
+    "userConfirmedBundleSwitch": false,
+    "urlCheck": true,
+    "scopeDataCheck": false,
+    "coverView": true,
+    "es6": true,
+    "postcss": true,
+    "compileHotReLoad": true,
+    "lazyloadPlaceholderEnable": false,
+    "preloadBackgroundData": false,
+    "minified": true,
+    "autoAudits": false,
+    "newFeature": false,
+    "uglifyFileName": false,
+    "uploadWithSourceMap": true,
+    "useIsolateContext": true,
+    "nodeModules": false,
+    "enhance": true,
+    "useMultiFrameRuntime": true,
+    "useApiHook": true,
+    "useApiHostProcess": true,
+    "showShadowRootInWxmlPanel": true,
+    "packNpmManually": false,
+    "enableEngineNative": false,
+    "packNpmRelationList": [],
+    "minifyWXSS": true,
+    "minifyWXML": true,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    },
+    "condition": false
+  },
+  "compileType": "miniprogram",
+  "libVersion": "2.32.0",
+  "appid": "wx YOUR_APPID_HERE",
+  "projectname": "wardrobe-assistant",
+  "cloudfunctionRoot": "cloudfunctions/",
+  "cloudfunctionDefaultEnv": "cloud1-6gdrkuux94b4b4ef",
+  "cloudfunctionTemplateRoot": "cloudfunctionTemplate/",
+  "watchOptions": {
+    "ignore": [
+      "node_modules",
+      ".git"
+    ]
+  },
+  "debugOptions": {
+    "hidedInDevtools": []
+  },
+  "scripts": {},
+  "staticServerOptions": {
+    "baseURL": "",
+    "servePath": ""
+  },
+  "isGameTourist": false,
+  "condition": {
+    "search": {
+      "list": []
+    },
+    "conversation": {
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
+    "plugin": {
+      "list": []
+    },
+    "gamePlugin": {
+      "list": []
+    },
+    "miniprogram": {
+      "list": [
+        {
+          "id": -1,
+          "name": "首页",
+          "pathName": "pages/index/index",
+          "query": ""
+        },
+        {
+          "id": -2,
+          "name": "衣柜",
+          "pathName": "pages/wardrobe/wardrobe",
+          "query": ""
+        },
+        {
+          "id": -3,
+          "name": "上传",
+          "pathName": "pages/upload/upload",
+          "query": ""
+        },
+        {
+          "id": -4,
+          "name": "试衣",
+          "pathName": "pages/tryon/tryon",
+          "query": ""
+        },
+        {
+          "id": -5,
+          "name": "穿搭建议",
+          "pathName": "pages/suggestion/suggestion",
+          "query": ""
+        },
+        {
+          "id": -6,
+          "name": "个人中心",
+          "pathName": "pages/profile/profile",
+          "query": ""
+        }
+      ]
+    }
+  }
+}

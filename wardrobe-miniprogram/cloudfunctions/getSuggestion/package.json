@@ -1,0 +1,15 @@
+{
+  "name": "getSuggestion",
+  "version": "1.0.0",
+  "description": "穿搭建议云函数 - 调用AI获取穿搭建议和点评",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "智能穿搭助手",
+  "license": "MIT",
+  "dependencies": {
+    "wx-server-sdk": "latest",
+    "axios": "^1.6.0"
+  }
+}

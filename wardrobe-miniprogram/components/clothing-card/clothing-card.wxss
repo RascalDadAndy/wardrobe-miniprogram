@@ -1,0 +1,111 @@
+/* components/clothing-card/clothing-card.wxss */
+
+.clothing-card {
+  background: var(--surface);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s;
+}
+
+.clothing-card:active {
+  transform: scale(0.98);
+}
+
+.clothing-card.selected {
+  box-shadow: 0 0 0 4rpx var(--primary);
+}
+
+/* 图片区域 */
+.image-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: var(--background);
+}
+
+.cloth-image {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.3s;
+}
+
+.clothing-card:active .cloth-image {
+  transform: scale(1.05);
+}
+
+/* 选中遮罩 */
+.selected-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(212, 165, 116, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.check-icon {
+  width: 60rpx;
+  height: 60rpx;
+}
+
+/* 删除按钮 */
+.delete-btn {
+  position: absolute;
+  top: 12rpx;
+  right: 12rpx;
+  width: 48rpx;
+  height: 48rpx;
+  background: rgba(244, 67, 54, 0.9);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.delete-btn image {
+  width: 28rpx;
+  height: 28rpx;
+}
+
+/* 信息区域 */
+.info-wrapper {
+  padding: var(--spacing-sm);
+}
+
+.cloth-name {
+  display: block;
+  font-size: 28rpx;
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-bottom: 8rpx;
+}
+
+.cloth-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8rpx;
+}
+
+.tag {
+  display: inline-block;
+  padding: 4rpx 12rpx;
+  border-radius: 8rpx;
+  font-size: 20rpx;
+}
+
+.category-tag {
+  background: var(--primary-light);
+  color: var(--primary-dark);
+}
+
+.season-tag {
+  background: rgba(224, 123, 57, 0.15);
+  color: var(--accent);
+}

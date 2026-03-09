@@ -1,0 +1,470 @@
+/* pages/upload/upload.wxss - 上传页面样式 */
+
+/* 上传区域 */
+.upload-section {
+  padding: var(--spacing-md);
+}
+
+.upload-area {
+  height: 500rpx;
+  background: var(--surface);
+  border: 4rpx dashed var(--divider);
+  border-radius: var(--radius-lg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.upload-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.upload-icon {
+  width: 120rpx;
+  height: 120rpx;
+  margin-bottom: var(--spacing-md);
+  opacity: 0.5;
+}
+
+.upload-title {
+  font-size: 32rpx;
+  color: var(--text);
+  margin-bottom: var(--spacing-xs);
+}
+
+.upload-desc {
+  font-size: 26rpx;
+  color: var(--text-hint);
+}
+
+/* 提示区域 */
+.tips-section {
+  background: var(--surface);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
+}
+
+.tips-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: var(--spacing-md);
+}
+
+.tips-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.tip-item {
+  display: flex;
+  align-items: center;
+}
+
+.tip-icon {
+  font-size: 36rpx;
+  margin-right: var(--spacing-sm);
+}
+
+.tip-text {
+  font-size: 26rpx;
+  color: var(--text-secondary);
+}
+
+/* 编辑区域 */
+.edit-section {
+  padding-bottom: 160rpx;
+}
+
+/* 图片预览 */
+.image-preview-section {
+  position: relative;
+  background: var(--surface);
+  padding: var(--spacing-md);
+}
+
+.preview-image {
+  width: 100%;
+  height: 400rpx;
+  border-radius: var(--radius-md);
+  background: var(--background);
+}
+
+.image-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--spacing-md);
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  padding: 12rpx 32rpx;
+  background: var(--background);
+  border-radius: var(--radius-md);
+}
+
+.action-btn image {
+  width: 32rpx;
+  height: 32rpx;
+  margin-right: 12rpx;
+}
+
+.action-btn text {
+  font-size: 26rpx;
+  color: var(--text);
+}
+
+/* AI分析中 */
+.analyzing-overlay {
+  position: absolute;
+  top: var(--spacing-md);
+  left: var(--spacing-md);
+  right: var(--spacing-md);
+  bottom: 120rpx;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: var(--radius-md);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.analyzing-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #FFFFFF;
+}
+
+.analyzing-spinner {
+  width: 80rpx;
+  height: 80rpx;
+  border: 6rpx solid rgba(255, 255, 255, 0.3);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: var(--spacing-md);
+}
+
+/* 表单区域 */
+.form-section {
+  margin: var(--spacing-md);
+}
+
+.form-group {
+  margin-bottom: var(--spacing-lg);
+}
+
+.group-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: var(--text);
+  padding: var(--spacing-md) 0;
+  border-bottom: 2rpx solid var(--divider);
+  margin-bottom: var(--spacing-md);
+}
+
+.form-item {
+  margin-bottom: var(--spacing-md);
+}
+
+.item-label {
+  display: block;
+  font-size: 28rpx;
+  color: var(--text);
+  margin-bottom: var(--spacing-sm);
+}
+
+.item-label.required::after {
+  content: '*';
+  color: var(--error);
+  margin-left: 8rpx;
+}
+
+.item-input {
+  width: 100%;
+  height: 80rpx;
+  background: var(--background);
+  border-radius: var(--radius-sm);
+  padding: 0 var(--spacing-md);
+  font-size: 28rpx;
+}
+
+.item-textarea {
+  width: 100%;
+  height: 160rpx;
+  background: var(--background);
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-md);
+  font-size: 28rpx;
+}
+
+/* 分类网格 */
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-sm);
+}
+
+.category-item {
+  padding: 20rpx;
+  background: var(--background);
+  border-radius: var(--radius-sm);
+  text-align: center;
+  font-size: 26rpx;
+  color: var(--text);
+  transition: all 0.2s;
+}
+
+.category-item.active {
+  background: var(--primary);
+  color: #FFFFFF;
+}
+
+/* 子分类 */
+.subcategory-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+}
+
+.subcategory-item {
+  padding: 12rpx 24rpx;
+  background: var(--background);
+  border-radius: var(--radius-sm);
+  font-size: 24rpx;
+  color: var(--text);
+}
+
+.subcategory-item.active {
+  background: var(--primary-light);
+  color: var(--primary-dark);
+}
+
+/* 颜色网格 */
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: var(--spacing-sm);
+}
+
+.color-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.color-circle {
+  width: 56rpx;
+  height: 56rpx;
+  border-radius: 50%;
+  border: 4rpx solid var(--divider);
+  margin-bottom: 8rpx;
+}
+
+.color-item.active .color-circle {
+  border-color: var(--primary);
+  border-width: 6rpx;
+}
+
+.color-name {
+  font-size: 20rpx;
+  color: var(--text-secondary);
+}
+
+/* 选项列表 */
+.option-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+}
+
+.option-item {
+  padding: 12rpx 24rpx;
+  background: var(--background);
+  border-radius: var(--radius-sm);
+  font-size: 24rpx;
+  color: var(--text);
+}
+
+.option-item.active {
+  background: var(--primary-light);
+  color: var(--primary-dark);
+}
+
+/* 季节列表 */
+.season-list {
+  display: flex;
+  gap: var(--spacing-md);
+}
+
+.season-item {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  background: var(--background);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 28rpx;
+  color: var(--text);
+}
+
+.season-item.active {
+  background: var(--primary);
+  color: #FFFFFF;
+}
+
+/* 场合列表 */
+.occasion-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+}
+
+.occasion-item {
+  padding: 12rpx 24rpx;
+  background: var(--background);
+  border-radius: var(--radius-sm);
+  font-size: 24rpx;
+  color: var(--text);
+}
+
+.occasion-item.active {
+  background: var(--primary-light);
+  color: var(--primary-dark);
+}
+
+/* 价格输入 */
+.price-input-wrapper {
+  display: flex;
+  align-items: center;
+  background: var(--background);
+  border-radius: var(--radius-sm);
+  padding: 0 var(--spacing-md);
+}
+
+.price-symbol {
+  font-size: 28rpx;
+  color: var(--text);
+  margin-right: 8rpx;
+}
+
+.price-input {
+  background: transparent;
+  flex: 1;
+}
+
+/* 标签输入 */
+.tag-input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.tag-input {
+  flex: 1;
+}
+
+.add-tag-btn {
+  width: 80rpx;
+  height: 80rpx;
+  background: var(--primary);
+  border-radius: var(--radius-sm);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #FFFFFF;
+  font-size: 40rpx;
+}
+
+.tags-display {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-sm);
+}
+
+.tag-item {
+  display: flex;
+  align-items: center;
+  padding: 8rpx 16rpx;
+  background: var(--primary-light);
+  border-radius: var(--radius-sm);
+}
+
+.tag-item text {
+  font-size: 24rpx;
+  color: var(--primary-dark);
+  margin-right: 8rpx;
+}
+
+.remove-tag {
+  width: 24rpx;
+  height: 24rpx;
+}
+
+/* 表单按钮 */
+.form-actions {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
+  padding-bottom: calc(var(--spacing-md) + env(safe-area-inset-bottom));
+  background: var(--surface);
+  border-top: 2rpx solid var(--divider);
+}
+
+.form-actions .btn {
+  flex: 1;
+}
+
+/* 上传中遮罩 */
+.uploading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.uploading-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #FFFFFF;
+}
+
+.progress-circle {
+  width: 160rpx;
+  height: 160rpx;
+  border: 8rpx solid rgba(255, 255, 255, 0.3);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: var(--spacing-md);
+  animation: spin 1s linear infinite;
+}
+
+.progress-text {
+  font-size: 36rpx;
+  font-weight: 600;
+}
+
+.uploading-text {
+  font-size: 28rpx;
+}

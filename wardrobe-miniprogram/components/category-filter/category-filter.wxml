@@ -1,0 +1,18 @@
+<!--components/category-filter/category-filter.wxml-->
+<scroll-view class="category-filter" 
+             scroll-x 
+             scroll-with-animation
+             scroll-left="{{scrollLeft}}"
+             enhanced
+             show-scrollbar="{{false}}">
+  <view class="filter-list">
+    <view class="filter-item {{current === item.id ? 'active' : ''}}"
+          wx:for="{{categories}}" 
+          wx:key="id"
+          bindtap="onSelect"
+          data-id="{{item.id}}">
+      <text class="filter-icon" wx:if="{{item.icon}}">{{item.icon}}</text>
+      <text class="filter-name">{{item.name}}</text>
+    </view>
+  </view>
+</scroll-view>

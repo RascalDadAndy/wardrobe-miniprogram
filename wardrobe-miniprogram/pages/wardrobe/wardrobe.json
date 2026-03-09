@@ -1,0 +1,11 @@
+{
+  "usingComponents": {
+    "clothing-card": "/components/clothing-card/clothing-card",
+    "category-filter": "/components/category-filter/category-filter",
+    "loading": "/components/loading/loading"
+  },
+  "navigationBarTitleText": "我的衣柜",
+  "enablePullDownRefresh": true,
+  "backgroundColor": "#F5F0EB",
+  "onReachBottomDistance": 50
+}

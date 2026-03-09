@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "openapi": []
+  },
+  "triggers": [],
+  "envVariables": {
+    "AI_SERVICE_URL": "https://your-ai-service.com/api",
+    "AI_API_KEY": "your-api-key-here"
+  }
+}

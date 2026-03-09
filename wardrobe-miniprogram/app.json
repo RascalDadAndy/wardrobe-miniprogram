@@ -1,0 +1,71 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/wardrobe/wardrobe",
+    "pages/upload/upload",
+    "pages/tryon/tryon",
+    "pages/suggestion/suggestion",
+    "pages/profile/profile"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#D4A574",
+    "navigationBarTitleText": "智能穿搭助手",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#F5F0EB"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#D4A574",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "images/tabbar/home.png",
+        "selectedIconPath": "images/tabbar/home-active.png"
+      },
+      {
+        "pagePath": "pages/wardrobe/wardrobe",
+        "text": "衣柜",
+        "iconPath": "images/tabbar/wardrobe.png",
+        "selectedIconPath": "images/tabbar/wardrobe-active.png"
+      },
+      {
+        "pagePath": "pages/upload/upload",
+        "text": "上传",
+        "iconPath": "images/tabbar/upload.png",
+        "selectedIconPath": "images/tabbar/upload-active.png"
+      },
+      {
+        "pagePath": "pages/tryon/tryon",
+        "text": "试衣",
+        "iconPath": "images/tabbar/tryon.png",
+        "selectedIconPath": "images/tabbar/tryon-active.png"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的",
+        "iconPath": "images/tabbar/profile.png",
+        "selectedIconPath": "images/tabbar/profile-active.png"
+      }
+    ]
+  },
+  "cloud": true,
+  "sitemapLocation": "sitemap.json",
+  "style": "v2",
+  "useExtendedLib": {
+    "weui": true
+  },
+  "permission": {
+    "scope.camera": {
+      "desc": "用于拍摄服装照片"
+    },
+    "scope.writePhotosAlbum": {
+      "desc": "用于保存穿搭图片到相册"
+    }
+  },
+  "requiredBackgroundModes": [],
+  "lazyCodeLoading": "requiredComponents"
+}

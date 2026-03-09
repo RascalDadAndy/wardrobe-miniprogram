@@ -1,0 +1,44 @@
+/* components/category-filter/category-filter.wxss */
+
+.category-filter {
+  width: 100%;
+  background: var(--surface);
+  white-space: nowrap;
+}
+
+.filter-list {
+  display: inline-flex;
+  padding: var(--spacing-sm) var(--spacing-md);
+}
+
+.filter-item {
+  display: inline-flex;
+  align-items: center;
+  padding: 16rpx 32rpx;
+  margin-right: var(--spacing-sm);
+  background: var(--background);
+  border-radius: 32rpx;
+  transition: all 0.2s;
+}
+
+.filter-item:last-child {
+  margin-right: 0;
+}
+
+.filter-item.active {
+  background: var(--primary);
+}
+
+.filter-icon {
+  font-size: 28rpx;
+  margin-right: 8rpx;
+}
+
+.filter-name {
+  font-size: 26rpx;
+  color: var(--text);
+}
+
+.filter-item.active .filter-name {
+  color: #FFFFFF;
+}

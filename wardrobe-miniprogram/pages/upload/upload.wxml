@@ -1,0 +1,258 @@
+<!--pages/upload/upload.wxml - 上传页面-->
+<view class="page-container">
+  <!-- 步骤1：拍照/选择图片 -->
+  <view class="upload-section" wx:if="{{currentStep === 1}}">
+    <view class="upload-area" bindtap="onChooseImageSource">
+      <view class="upload-placeholder">
+        <image class="upload-icon" src="/images/icons/camera-large.png" mode="aspectFit"/>
+        <text class="upload-title">点击添加衣物照片</text>
+        <text class="upload-desc">支持拍照或从相册选择</text>
+      </view>
+    </view>
+    
+    <view class="tips-section">
+      <view class="tips-title">拍照小贴士</view>
+      <view class="tips-list">
+        <view class="tip-item">
+          <text class="tip-icon">📷</text>
+          <text class="tip-text">在光线充足的环境下拍摄</text>
+        </view>
+        <view class="tip-item">
+          <text class="tip-icon">🎯</text>
+          <text class="tip-text">尽量让衣物充满整个画面</text>
+        </view>
+        <view class="tip-item">
+          <text class="tip-icon">🌈</text>
+          <text class="tip-text">使用纯色背景效果更佳</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 步骤2：编辑信息 -->
+  <view class="edit-section" wx:if="{{currentStep === 2}}">
+    <!-- 图片预览 -->
+    <view class="image-preview-section">
+      <image class="preview-image" src="{{tempImagePath}}" mode="aspectFit"/>
+      <view class="image-actions">
+        <view class="action-btn" bindtap="onRetake">
+          <image src="/images/icons/retake.png" mode="aspectFit"/>
+          <text>重拍</text>
+        </view>
+      </view>
+      
+      <!-- AI分析中 -->
+      <view class="analyzing-overlay" wx:if="{{isAnalyzing}}">
+        <view class="analyzing-content">
+          <view class="analyzing-spinner"></view>
+          <text>AI正在分析衣物...</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 表单区域 -->
+    <view class="form-section card">
+      <!-- 基本信息 -->
+      <view class="form-group">
+        <view class="group-title">基本信息</view>
+        
+        <!-- 名称 -->
+        <view class="form-item">
+          <text class="item-label required">衣物名称</text>
+          <input class="item-input" 
+                 placeholder="例如：白色纯棉T恤" 
+                 value="{{formData.name}}"
+                 data-field="name"
+                 bindinput="onInputChange"/>
+        </view>
+        
+        <!-- 分类 -->
+        <view class="form-item">
+          <text class="item-label required">分类</text>
+          <view class="category-grid">
+            <view class="category-item {{formData.category === item.id ? 'active' : ''}}"
+                  wx:for="{{categories}}" 
+                  wx:key="id"
+                  bindtap="onCategorySelect"
+                  data-id="{{item.id}}">
+              <text>{{item.name}}</text>
+            </view>
+          </view>
+        </view>
+        
+        <!-- 子分类 -->
+        <view class="form-item" wx:if="{{formData.category && showSubCategory}}">
+          <text class="item-label">子分类</text>
+          <view class="subcategory-list">
+            <view class="subcategory-item {{formData.subCategory === item ? 'active' : ''}}"
+                  wx:for="{{currentSubCategories}}" 
+                  wx:key="*this"
+                  bindtap="onSubCategorySelect"
+                  data-name="{{item}}">
+              <text>{{item}}</text>
+            </view>
+          </view>
+        </view>
+        
+        <!-- 颜色 -->
+        <view class="form-item">
+          <text class="item-label required">颜色</text>
+          <view class="color-grid">
+            <view class="color-item {{formData.color === item.id ? 'active' : ''}}"
+                  wx:for="{{colors}}" 
+                  wx:key="id"
+                  bindtap="onColorSelect"
+                  data-id="{{item.id}}">
+              <view class="color-circle" style="background: {{item.color}}; {{item.id === 'multi' ? 'background: ' + item.color : ''}}"></view>
+              <text class="color-name">{{item.name}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 详细信息 -->
+      <view class="form-group">
+        <view class="group-title">详细信息</view>
+        
+        <!-- 图案 -->
+        <view class="form-item">
+          <text class="item-label">图案</text>
+          <view class="option-list">
+            <view class="option-item {{formData.pattern === item ? 'active' : ''}}"
+                  wx:for="{{patterns}}" 
+                  wx:key="*this"
+                  bindtap="onPatternSelect"
+                  data-pattern="{{item}}">
+              <text>{{item}}</text>
+            </view>
+          </view>
+        </view>
+        
+        <!-- 材质 -->
+        <view class="form-item">
+          <text class="item-label">材质</text>
+          <view class="option-list">
+            <view class="option-item {{formData.material === item ? 'active' : ''}}"
+                  wx:for="{{materials}}" 
+                  wx:key="*this"
+                  bindtap="onMaterialSelect"
+                  data-material="{{item}}">
+              <text>{{item}}</text>
+            </view>
+          </view>
+        </view>
+        
+        <!-- 适用季节 -->
+        <view class="form-item">
+          <text class="item-label">适用季节</text>
+          <view class="season-list">
+            <view class="season-item {{formData.season.includes(item.id) ? 'active' : ''}}"
+                  wx:for="{{seasons}}" 
+                  wx:key="id"
+                  bindtap="onSeasonToggle"
+                  data-id="{{item.id}}">
+              <text>{{item.name}}</text>
+            </view>
+          </view>
+        </view>
+        
+        <!-- 适用场合 -->
+        <view class="form-item">
+          <text class="item-label">适用场合</text>
+          <view class="occasion-list">
+            <view class="occasion-item {{formData.occasion.includes(item.id) ? 'active' : ''}}"
+                  wx:for="{{occasions}}" 
+                  wx:key="id"
+                  bindtap="onOccasionToggle"
+                  data-id="{{item.id}}">
+              <text>{{item.name}}</text>
+            </view>
+          </view>
+        </view>
+        
+        <!-- 风格 -->
+        <view class="form-item">
+          <text class="item-label">风格</text>
+          <view class="option-list">
+            <view class="option-item {{formData.style === item ? 'active' : ''}}"
+                  wx:for="{{styles}}" 
+                  wx:key="*this"
+                  bindtap="onStyleSelect"
+                  data-style="{{item}}">
+              <text>{{item}}</text>
+            </view>
+          </view>
+        </view>
+        
+        <!-- 品牌 -->
+        <view class="form-item">
+          <text class="item-label">品牌</text>
+          <input class="item-input" 
+                 placeholder="输入品牌名称" 
+                 value="{{formData.brand}}"
+                 data-field="brand"
+                 bindinput="onInputChange"/>
+        </view>
+        
+        <!-- 价格 -->
+        <view class="form-item">
+          <text class="item-label">价格</text>
+          <view class="price-input-wrapper">
+            <text class="price-symbol">¥</text>
+            <input class="item-input price-input" 
+                   type="digit" 
+                   placeholder="0.00" 
+                   value="{{formData.price}}"
+                   data-field="price"
+                   bindinput="onInputChange"/>
+          </view>
+        </view>
+        
+        <!-- 标签 -->
+        <view class="form-item">
+          <text class="item-label">标签</text>
+          <view class="tag-input-wrapper">
+            <input class="item-input tag-input" 
+                   placeholder="添加标签，按回车确认" 
+                   value="{{tagInput}}"
+                   bindinput="onTagInput"
+                   bindconfirm="onAddTag"/>
+            <view class="add-tag-btn" bindtap="onAddTag">+</view>
+          </view>
+          <view class="tags-display" wx:if="{{formData.tags.length > 0}}">
+            <view class="tag-item" wx:for="{{formData.tags}}" wx:key="*this">
+              <text>{{item}}</text>
+              <image class="remove-tag" src="/images/icons/close.png" mode="aspectFit" bindtap="onRemoveTag" data-index="{{index}}"/>
+            </view>
+          </view>
+        </view>
+        
+        <!-- 备注 -->
+        <view class="form-item">
+          <text class="item-label">备注</text>
+          <textarea class="item-textarea" 
+                    placeholder="添加备注信息..." 
+                    value="{{formData.notes}}"
+                    data-field="notes"
+                    bindinput="onInputChange"/>
+        </view>
+      </view>
+    </view>
+
+    <!-- 底部按钮 -->
+    <view class="form-actions">
+      <button class="btn btn-outline" bindtap="onCancel">取消</button>
+      <button class="btn btn-primary" bindtap="onSubmit">保存</button>
+    </view>
+  </view>
+
+  <!-- 上传中遮罩 -->
+  <view class="uploading-overlay" wx:if="{{isUploading}}">
+    <view class="uploading-content">
+      <view class="progress-circle">
+        <text class="progress-text">{{uploadProgress}}%</text>
+      </view>
+      <text class="uploading-text">正在保存...</text>
+    </view>
+  </view>
+</view>

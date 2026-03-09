@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "loading": "/components/loading/loading"
+  },
+  "navigationBarTitleText": "上传衣物",
+  "backgroundColor": "#F5F0EB"
+}

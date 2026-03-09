@@ -1,0 +1,135 @@
+<!--pages/wardrobe/wardrobe.wxml - 衣柜页面-->
+<view class="page-container">
+  <!-- 搜索栏 -->
+  <view class="search-bar">
+    <view class="search-input-wrapper">
+      <image class="search-icon" src="/images/icons/search.png" mode="aspectFit"/>
+      <input class="search-input" 
+             type="text" 
+             placeholder="搜索衣物名称..." 
+             value="{{searchKeyword}}"
+             bindinput="onSearch"
+             confirm-type="search"/>
+      <image wx:if="{{searchKeyword}}" 
+             class="clear-icon" 
+             src="/images/icons/clear.png" 
+             mode="aspectFit"
+             bindtap="onClearSearch"/>
+    </view>
+    <view class="view-toggle" bindtap="onToggleViewMode">
+      <image class="toggle-icon" 
+             src="{{viewMode === 'grid' ? '/images/icons/list-view.png' : '/images/icons/grid-view.png'}}" 
+             mode="aspectFit"/>
+    </view>
+  </view>
+
+  <!-- 分类筛选 -->
+  <category-filter 
+    categories="{{categories}}" 
+    current="{{currentCategory}}"
+    bind:change="onCategoryChange"/>
+
+  <!-- 操作栏 -->
+  <view class="action-bar" wx:if="{{!isSelectionMode}}">
+    <view class="sort-section">
+      <picker mode="selector" range="{{sortOptions}}" range-key="name" bindchange="onSortChange">
+        <view class="sort-picker">
+          <text>{{currentSortName}}</text>
+          <image class="sort-arrow" src="/images/icons/arrow-down.png" mode="aspectFit"/>
+        </view>
+      </picker>
+    </view>
+    <view class="count-section">
+      <text class="count-text">共 {{clothesList.length}} 件</text>
+    </view>
+    <view class="batch-btn" bindtap="onEnterSelectionMode">
+      <text>批量管理</text>
+    </view>
+  </view>
+
+  <!-- 选择模式操作栏 -->
+  <view class="selection-bar" wx:if="{{isSelectionMode}}">
+    <view class="selection-info">
+      <text class="selected-count">已选 {{selectedItems.length}} 件</text>
+    </view>
+    <view class="selection-actions">
+      <text class="action-text" bindtap="onSelectAll">全选</text>
+      <text class="action-text delete" bindtap="onBatchDelete">删除</text>
+      <text class="action-text" bindtap="onExitSelectionMode">取消</text>
+    </view>
+  </view>
+
+  <!-- 衣物列表 - 网格视图 -->
+  <view class="clothes-grid" wx:if="{{viewMode === 'grid' && clothesList.length > 0}}">
+    <view class="grid-item {{isSelectionMode ? 'selection-mode' : ''}} {{selectedItems.includes(item._id) ? 'selected' : ''}}"
+          wx:for="{{clothesList}}" 
+          wx:key="_id"
+          bindtap="onClothTap"
+          bindlongpress="onClothLongPress"
+          data-id="{{item._id}}">
+      <view class="selection-indicator" wx:if="{{isSelectionMode}}">
+        <view class="checkbox {{selectedItems.includes(item._id) ? 'checked' : ''}}">
+          <image wx:if="{{selectedItems.includes(item._id)}}" src="/images/icons/check.png" mode="aspectFit"/>
+        </view>
+      </view>
+      <clothing-card 
+        image="{{item.imageUrl}}"
+        name="{{item.name}}"
+        category="{{item.category}}"
+        color="{{item.color}}"
+        season="{{item.season}}"/>
+    </view>
+  </view>
+
+  <!-- 衣物列表 - 列表视图 -->
+  <view class="clothes-list" wx:if="{{viewMode === 'list' && clothesList.length > 0}}">
+    <view class="list-item {{isSelectionMode ? 'selection-mode' : ''}} {{selectedItems.includes(item._id) ? 'selected' : ''}}"
+          wx:for="{{clothesList}}" 
+          wx:key="_id"
+          bindtap="onClothTap"
+          bindlongpress="onClothLongPress"
+          data-id="{{item._id}}">
+      <view class="selection-indicator" wx:if="{{isSelectionMode}}">
+        <view class="checkbox {{selectedItems.includes(item._id) ? 'checked' : ''}}">
+          <image wx:if="{{selectedItems.includes(item._id)}}" src="/images/icons/check.png" mode="aspectFit"/>
+        </view>
+      </view>
+      <image class="list-image" src="{{item.imageUrl}}" mode="aspectFill"/>
+      <view class="list-info">
+        <text class="list-name">{{item.name}}</text>
+        <view class="list-tags">
+          <text class="tag tag-primary">{{item.category}}</text>
+          <text class="tag tag-accent">{{item.season}}</text>
+        </view>
+        <text class="list-date">{{item.createTime}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{clothesList.length === 0 && !isLoading}}">
+    <image class="empty-icon" src="/images/empty-wardrobe.png" mode="aspectFit"/>
+    <text class="empty-title">衣柜还是空的</text>
+    <text class="empty-desc">添加你的第一件衣物，开始智能穿搭之旅</text>
+    <button class="btn btn-primary" bindtap="onGoUpload">去添加衣物</button>
+  </view>
+
+  <!-- 加载更多 -->
+  <view class="load-more" wx:if="{{hasMore && clothesList.length > 0}}">
+    <loading wx:if="{{isLoading}}" text="加载中..."/>
+    <text wx:else class="load-text">上拉加载更多</text>
+  </view>
+
+  <!-- 没有更多 -->
+  <view class="no-more" wx:if="{{!hasMore && clothesList.length > 0}}">
+    <text>已经到底啦</text>
+  </view>
+
+  <!-- 悬浮添加按钮 -->
+  <view class="fab" bindtap="onGoUpload" wx:if="{{!isSelectionMode}}">
+    <image class="fab-icon" src="/images/icons/add.png" mode="aspectFit"/>
+  </view>
+
+  <!-- 加载状态 -->
+  <loading wx:if="{{isLoading && clothesList.length === 0}}" text="加载中..."/>
+</view>

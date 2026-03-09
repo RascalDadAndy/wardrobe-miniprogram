@@ -1,0 +1,230 @@
+<!-- 虚拟试衣页面 - 智能穿搭助手 -->
+<view class="container">
+  <!-- 步骤指示器 -->
+  <view class="step-indicator">
+    <view class="step-item {{currentStep >= 1 ? 'active' : ''}}">
+      <view class="step-number">1</view>
+      <text class="step-name">选择照片</text>
+    </view>
+    <view class="step-line {{currentStep >= 2 ? 'active' : ''}}"></view>
+    <view class="step-item {{currentStep >= 2 ? 'active' : ''}}">
+      <view class="step-number">2</view>
+      <text class="step-name">选择衣物</text>
+    </view>
+    <view class="step-line {{currentStep >= 3 ? 'active' : ''}}"></view>
+    <view class="step-item {{currentStep >= 3 ? 'active' : ''}}">
+      <view class="step-number">3</view>
+      <text class="step-name">生成效果</text>
+    </view>
+  </view>
+
+  <!-- 步骤1：选择用户照片 -->
+  <view class="step-content" wx:if="{{currentStep === 1}}">
+    <view class="section-title">
+      <text class="title-icon">📷</text>
+      <text>选择您的正面照片</text>
+    </view>
+    
+    <!-- 照片选择区域 -->
+    <view class="photo-section">
+      <!-- 已选照片预览 -->
+      <view class="photo-preview" wx:if="{{userPhoto}}">
+        <image class="preview-image" src="{{userPhoto}}" mode="aspectFit"></image>
+        <view class="photo-actions">
+          <view class="action-btn" bindtap="retakePhoto">
+            <text class="btn-icon">🔄</text>
+            <text>重新选择</text>
+          </view>
+        </view>
+      </view>
+      
+      <!-- 照片选择选项 -->
+      <view class="photo-options" wx:if="{{!userPhoto}}">
+        <view class="photo-option" bindtap="takePhoto">
+          <text class="option-icon">📷</text>
+          <text class="option-name">拍照</text>
+        </view>
+        <view class="photo-option" bindtap="chooseFromAlbum">
+          <text class="option-icon">🖼️</text>
+          <text class="option-name">相册</text>
+        </view>
+        <view class="photo-option" bindtap="useHistoryPhoto" wx:if="{{historyPhotos.length > 0}}">
+          <text class="option-icon">🕐</text>
+          <text class="option-name">历史照片</text>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 拍照提示 -->
+    <view class="tips-section" wx:if="{{!userPhoto}}">
+      <view class="tips-title">拍照小贴士</view>
+      <view class="tip-item" wx:for="{{photoTips}}" wx:key="index">
+        <text class="tip-icon">✓</text>
+        <text class="tip-text">{{item}}</text>
+      </view>
+    </view>
+    
+    <!-- 下一步按钮 -->
+    <view class="step-actions" wx:if="{{userPhoto}}">
+      <button class="next-btn" bindtap="goToStep2">下一步：选择衣物</button>
+    </view>
+  </view>
+
+  <!-- 步骤2：选择衣物 -->
+  <view class="step-content" wx:if="{{currentStep === 2}}">
+    <view class="section-title">
+      <text class="title-icon">👔</text>
+      <text>选择要试穿的衣物</text>
+      <text class="subtitle">已选择 {{selectedClothes.length}} 件</text>
+    </view>
+    
+    <!-- 分类筛选 -->
+    <view class="category-filter">
+      <scroll-view scroll-x enable-flex>
+        <view class="filter-list">
+          <view 
+            class="filter-item {{currentCategory === item.value ? 'active' : ''}}" 
+            wx:for="{{categories}}" 
+            wx:key="value"
+            data-value="{{item.value}}"
+            bindtap="selectCategory"
+          >
+            {{item.name}}
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+    
+    <!-- 衣物列表 -->
+    <view class="clothes-list">
+      <view 
+        class="clothes-item {{item.selected ? 'selected' : ''}}" 
+        wx:for="{{filteredClothes}}" 
+        wx:key="id"
+        data-id="{{item.id}}"
+        bindtap="toggleClothesSelection"
+      >
+        <image class="clothes-img" src="{{item.image}}" mode="aspectFill"></image>
+        <view class="clothes-overlay" wx:if="{{item.selected}}">
+          <text class="selected-icon">✓</text>
+        </view>
+        <view class="clothes-info">
+          <text class="clothes-name">{{item.name}}</text>
+          <text class="clothes-category">{{item.categoryName}}</text>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 空状态 -->
+    <view class="empty-state" wx:if="{{filteredClothes.length === 0}}">
+      <text class="empty-icon">👗</text>
+      <text class="empty-text">该分类暂无衣物</text>
+    </view>
+    
+    <!-- 已选衣物预览 -->
+    <view class="selected-preview" wx:if="{{selectedClothes.length > 0}}">
+      <text class="preview-title">已选衣物</text>
+      <scroll-view scroll-x enable-flex>
+        <view class="selected-list">
+          <view class="selected-item" wx:for="{{selectedClothes}}" wx:key="id">
+            <image class="selected-img" src="{{item.image}}" mode="aspectFill"></image>
+            <view class="remove-btn" data-id="{{item.id}}" bindtap="removeClothes">×</view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+    
+    <!-- 操作按钮 -->
+    <view class="step-actions">
+      <button class="prev-btn" bindtap="goToStep1">上一步</button>
+      <button class="next-btn {{selectedClothes.length > 0 ? '' : 'disabled'}}" bindtap="goToStep3" disabled="{{selectedClothes.length === 0}}">开始试衣</button>
+    </view>
+  </view>
+
+  <!-- 步骤3：生成效果 -->
+  <view class="step-content" wx:if="{{currentStep === 3}}">
+    <!-- 生成中状态 -->
+    <view class="generating-section" wx:if="{{isGenerating}}">
+      <view class="generating-animation">
+        <view class="animation-ring"></view>
+        <view class="animation-ring"></view>
+        <view class="animation-ring"></view>
+      </view>
+      <text class="generating-text">AI正在生成试衣效果...</text>
+      <text class="generating-subtext">请稍候，预计需要10-30秒</text>
+      <view class="progress-bar">
+        <view class="progress-fill" style="width: {{generateProgress}}%;"></view>
+      </view>
+      <text class="progress-text">{{generateProgress}}%</text>
+    </view>
+    
+    <!-- 生成结果 -->
+    <view class="result-section" wx:if="{{!isGenerating && resultImage}}">
+      <view class="result-title">
+        <text class="title-icon">✨</text>
+        <text>试衣效果</text>
+      </view>
+      
+      <!-- 结果图片 -->
+      <view class="result-image-container">
+        <image class="result-image" src="{{resultImage}}" mode="aspectFit" bindtap="previewResult"></image>
+        
+        <!-- 对比按钮 -->
+        <view class="compare-btn" bindtap="toggleCompare" wx:if="{{showCompare}}">
+          <text>{{isComparing ? '查看效果' : '对比原图'}}</text>
+        </view>
+      </view>
+      
+      <!-- 原图对比 -->
+      <view class="compare-section" wx:if="{{isComparing}}">
+        <text class="compare-label">原图</text>
+        <image class="compare-image" src="{{userPhoto}}" mode="aspectFit"></image>
+      </view>
+      
+      <!-- 试衣信息 -->
+      <view class="tryon-info">
+        <view class="info-title">试穿衣物的搭配</view>
+        <view class="tryon-clothes">
+          <view class="tryon-item" wx:for="{{selectedClothes}}" wx:key="id">
+            <image class="tryon-img" src="{{item.image}}" mode="aspectFill"></image>
+            <text class="tryon-name">{{item.name}}</text>
+          </view>
+        </view>
+      </view>
+      
+      <!-- 操作按钮 -->
+      <view class="result-actions">
+        <button class="action-btn save" bindtap="saveResult">保存到相册</button>
+        <button class="action-btn share" bindtap="shareResult">分享给好友</button>
+        <button class="action-btn retry" bindtap="retryTryon">重新试衣</button>
+      </view>
+    </view>
+    
+    <!-- 生成失败 -->
+    <view class="error-section" wx:if="{{!isGenerating && !resultImage && hasError}}">
+      <text class="error-icon">😔</text>
+      <text class="error-title">生成失败</text>
+      <text class="error-desc">{{errorMessage}}</text>
+      <button class="retry-btn" bindtap="retryGenerate">重新生成</button>
+    </view>
+  </view>
+
+  <!-- 历史照片弹窗 -->
+  <view class="history-modal" wx:if="{{showHistoryModal}}">
+    <view class="modal-mask" bindtap="closeHistoryModal"></view>
+    <view class="modal-content">
+      <view class="modal-header">
+        <text class="modal-title">选择历史照片</text>
+        <text class="modal-close" bindtap="closeHistoryModal">×</text>
+      </view>
+      <scroll-view class="history-list" scroll-y>
+        <view class="history-item" wx:for="{{historyPhotos}}" wx:key="index" bindtap="selectHistoryPhoto" data-index="{{index}}">
+          <image class="history-img" src="{{item}}" mode="aspectFill"></image>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+
+  <!-- 底部占位 -->
+  <view class="bottom-space"></view>
+</view>

@@ -1,0 +1,743 @@
+/* 虚拟试衣页面样式 - 智能穿搭助手 */
+
+/* 页面容器 */
+.container {
+  min-height: 100vh;
+  background: #f5f5f5;
+  padding-bottom: 40rpx;
+}
+
+/* 步骤指示器 */
+.step-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30rpx;
+  background: #fff;
+  margin-bottom: 20rpx;
+}
+
+.step-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.step-number {
+  width: 48rpx;
+  height: 48rpx;
+  border-radius: 50%;
+  background: #e0e0e0;
+  color: #999;
+  font-size: 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8rpx;
+  transition: all 0.3s ease;
+}
+
+.step-item.active .step-number {
+  background: linear-gradient(135deg, #FF6B9D 0%, #FF8E53 100%);
+  color: #fff;
+}
+
+.step-name {
+  font-size: 22rpx;
+  color: #999;
+  transition: all 0.3s ease;
+}
+
+.step-item.active .step-name {
+  color: #FF6B9D;
+  font-weight: 500;
+}
+
+.step-line {
+  width: 80rpx;
+  height: 2rpx;
+  background: #e0e0e0;
+  margin: 0 16rpx;
+  margin-bottom: 30rpx;
+  transition: all 0.3s ease;
+}
+
+.step-line.active {
+  background: linear-gradient(135deg, #FF6B9D 0%, #FF8E53 100%);
+}
+
+/* 步骤内容 */
+.step-content {
+  padding: 0 30rpx;
+}
+
+/* 区块标题 */
+.section-title {
+  display: flex;
+  align-items: center;
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 24rpx;
+}
+
+.title-icon {
+  font-size: 40rpx;
+  margin-right: 12rpx;
+}
+
+.subtitle {
+  font-size: 24rpx;
+  color: #FF6B9D;
+  margin-left: auto;
+  font-weight: normal;
+}
+
+/* 照片区域 */
+.photo-section {
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+}
+
+.photo-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.preview-image {
+  width: 400rpx;
+  height: 500rpx;
+  border-radius: 16rpx;
+  object-fit: cover;
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.1);
+}
+
+.photo-actions {
+  margin-top: 24rpx;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  padding: 16rpx 32rpx;
+  background: #f5f5f5;
+  border-radius: 32rpx;
+  font-size: 26rpx;
+  color: #666;
+}
+
+.btn-icon {
+  margin-right: 8rpx;
+}
+
+/* 照片选项 */
+.photo-options {
+  display: flex;
+  justify-content: center;
+  gap: 40rpx;
+  padding: 40rpx 0;
+}
+
+.photo-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40rpx;
+  background: #f8f8f8;
+  border-radius: 20rpx;
+  border: 2rpx dashed #ddd;
+  transition: all 0.3s ease;
+}
+
+.photo-option:active {
+  background: #f0f0f0;
+  border-color: #FF6B9D;
+}
+
+.option-icon {
+  font-size: 56rpx;
+  margin-bottom: 12rpx;
+}
+
+.option-name {
+  font-size: 26rpx;
+  color: #666;
+}
+
+/* 提示区域 */
+.tips-section {
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+}
+
+.tips-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+}
+
+.tip-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.tip-item:last-child {
+  margin-bottom: 0;
+}
+
+.tip-icon {
+  width: 32rpx;
+  height: 32rpx;
+  background: linear-gradient(135deg, #FF6B9D 0%, #FF8E53 100%);
+  border-radius: 50%;
+  color: #fff;
+  font-size: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 16rpx;
+  flex-shrink: 0;
+}
+
+.tip-text {
+  font-size: 26rpx;
+  color: #666;
+}
+
+/* 步骤操作按钮 */
+.step-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 30rpx 0;
+}
+
+.next-btn, .prev-btn {
+  flex: 1;
+  height: 88rpx;
+  border-radius: 44rpx;
+  font-size: 30rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+}
+
+.next-btn {
+  background: linear-gradient(135deg, #FF6B9D 0%, #FF8E53 100%);
+  color: #fff;
+}
+
+.next-btn.disabled {
+  background: #ccc;
+}
+
+.next-btn:active:not(.disabled) {
+  transform: scale(0.98);
+}
+
+.prev-btn {
+  background: #f5f5f5;
+  color: #666;
+}
+
+.prev-btn:active {
+  background: #e8e8e8;
+}
+
+/* 分类筛选 */
+.category-filter {
+  background: #fff;
+  padding: 20rpx 30rpx;
+  margin: 0 -30rpx 20rpx;
+}
+
+.filter-list {
+  display: flex;
+  gap: 16rpx;
+}
+
+.filter-item {
+  padding: 16rpx 28rpx;
+  background: #f5f5f5;
+  border-radius: 32rpx;
+  font-size: 26rpx;
+  color: #666;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+}
+
+.filter-item.active {
+  background: linear-gradient(135deg, #FF6B9D 0%, #FF8E53 100%);
+  color: #fff;
+}
+
+/* 衣物列表 */
+.clothes-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16rpx;
+  margin-bottom: 20rpx;
+}
+
+.clothes-item {
+  position: relative;
+  background: #fff;
+  border-radius: 16rpx;
+  overflow: hidden;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+}
+
+.clothes-item:active {
+  transform: scale(0.98);
+}
+
+.clothes-item.selected {
+  box-shadow: 0 0 0 4rpx #FF6B9D, 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+}
+
+.clothes-img {
+  width: 100%;
+  height: 200rpx;
+  display: block;
+}
+
+.clothes-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 107, 157, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.selected-icon {
+  width: 48rpx;
+  height: 48rpx;
+  background: #FF6B9D;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 28rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clothes-info {
+  padding: 12rpx;
+}
+
+.clothes-name {
+  font-size: 22rpx;
+  color: #333;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.clothes-category {
+  font-size: 18rpx;
+  color: #999;
+  margin-top: 4rpx;
+}
+
+/* 空状态 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80rpx 0;
+}
+
+.empty-icon {
+  font-size: 80rpx;
+  margin-bottom: 20rpx;
+}
+
+.empty-text {
+  font-size: 28rpx;
+  color: #999;
+}
+
+/* 已选预览 */
+.selected-preview {
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.preview-title {
+  font-size: 26rpx;
+  color: #666;
+  margin-bottom: 16rpx;
+  display: block;
+}
+
+.selected-list {
+  display: flex;
+  gap: 16rpx;
+}
+
+.selected-item {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.selected-img {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 12rpx;
+}
+
+.remove-btn {
+  position: absolute;
+  top: -10rpx;
+  right: -10rpx;
+  width: 36rpx;
+  height: 36rpx;
+  background: #ff4d4f;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 生成中状态 */
+.generating-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 100rpx 60rpx;
+  background: #fff;
+  border-radius: 20rpx;
+}
+
+.generating-animation {
+  position: relative;
+  width: 160rpx;
+  height: 160rpx;
+  margin-bottom: 40rpx;
+}
+
+.animation-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 4rpx solid transparent;
+  border-top-color: #FF6B9D;
+  border-radius: 50%;
+  animation: spin 1.5s linear infinite;
+}
+
+.animation-ring:nth-child(1) {
+  width: 80rpx;
+  height: 80rpx;
+}
+
+.animation-ring:nth-child(2) {
+  width: 120rpx;
+  height: 120rpx;
+  animation-delay: 0.2s;
+}
+
+.animation-ring:nth-child(3) {
+  width: 160rpx;
+  height: 160rpx;
+  animation-delay: 0.4s;
+}
+
+@keyframes spin {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.generating-text {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 12rpx;
+}
+
+.generating-subtext {
+  font-size: 26rpx;
+  color: #999;
+  margin-bottom: 40rpx;
+}
+
+.progress-bar {
+  width: 80%;
+  height: 16rpx;
+  background: #f0f0f0;
+  border-radius: 8rpx;
+  overflow: hidden;
+  margin-bottom: 16rpx;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(135deg, #FF6B9D 0%, #FF8E53 100%);
+  border-radius: 8rpx;
+  transition: width 0.3s ease;
+}
+
+.progress-text {
+  font-size: 28rpx;
+  color: #FF6B9D;
+  font-weight: bold;
+}
+
+/* 结果区域 */
+.result-section {
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 30rpx;
+}
+
+.result-title {
+  display: flex;
+  align-items: center;
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 24rpx;
+}
+
+.result-image-container {
+  position: relative;
+  margin-bottom: 30rpx;
+}
+
+.result-image {
+  width: 100%;
+  height: 600rpx;
+  border-radius: 16rpx;
+  background: #f5f5f5;
+}
+
+.compare-btn {
+  position: absolute;
+  bottom: 20rpx;
+  right: 20rpx;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  font-size: 24rpx;
+  padding: 12rpx 24rpx;
+  border-radius: 24rpx;
+}
+
+.compare-section {
+  margin-bottom: 30rpx;
+}
+
+.compare-label {
+  font-size: 26rpx;
+  color: #666;
+  margin-bottom: 12rpx;
+  display: block;
+}
+
+.compare-image {
+  width: 100%;
+  height: 400rpx;
+  border-radius: 16rpx;
+  background: #f5f5f5;
+}
+
+/* 试衣信息 */
+.tryon-info {
+  margin-bottom: 30rpx;
+}
+
+.info-title {
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 16rpx;
+}
+
+.tryon-clothes {
+  display: flex;
+  gap: 16rpx;
+  flex-wrap: wrap;
+}
+
+.tryon-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tryon-img {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 12rpx;
+  margin-bottom: 8rpx;
+}
+
+.tryon-name {
+  font-size: 22rpx;
+  color: #666;
+}
+
+/* 结果操作按钮 */
+.result-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.result-actions .action-btn {
+  width: 100%;
+  height: 88rpx;
+  border-radius: 44rpx;
+  font-size: 30rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  padding: 0;
+}
+
+.action-btn.save {
+  background: linear-gradient(135deg, #FF6B9D 0%, #FF8E53 100%);
+  color: #fff;
+}
+
+.action-btn.share {
+  background: #4CAF50;
+  color: #fff;
+}
+
+.action-btn.retry {
+  background: #f5f5f5;
+  color: #666;
+}
+
+/* 错误区域 */
+.error-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 100rpx 60rpx;
+  background: #fff;
+  border-radius: 20rpx;
+}
+
+.error-icon {
+  font-size: 100rpx;
+  margin-bottom: 20rpx;
+}
+
+.error-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 12rpx;
+}
+
+.error-desc {
+  font-size: 26rpx;
+  color: #999;
+  margin-bottom: 40rpx;
+  text-align: center;
+}
+
+.retry-btn {
+  width: 300rpx;
+  height: 88rpx;
+  background: linear-gradient(135deg, #FF6B9D 0%, #FF8E53 100%);
+  color: #fff;
+  font-size: 30rpx;
+  border-radius: 44rpx;
+  border: none;
+}
+
+/* 历史照片弹窗 */
+.history-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+}
+
+.modal-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.modal-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border-radius: 24rpx 24rpx 0 0;
+  max-height: 70vh;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx;
+  border-bottom: 1rpx solid #eee;
+}
+
+.modal-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.modal-close {
+  font-size: 40rpx;
+  color: #999;
+  padding: 0 10rpx;
+}
+
+.history-list {
+  padding: 20rpx;
+  max-height: 60vh;
+}
+
+.history-item {
+  display: inline-block;
+  width: calc(33.33% - 14rpx);
+  margin: 7rpx;
+}
+
+.history-img {
+  width: 100%;
+  height: 200rpx;
+  border-radius: 12rpx;
+}
+
+/* 底部占位 */
+.bottom-space {
+  height: 40rpx;
+}

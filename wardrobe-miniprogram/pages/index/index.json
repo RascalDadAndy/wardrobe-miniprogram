@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "clothing-card": "/components/clothing-card/clothing-card",
+    "loading": "/components/loading/loading"
+  },
+  "navigationBarTitleText": "智能穿搭助手",
+  "enablePullDownRefresh": true,
+  "backgroundColor": "#F5F0EB"
+}
